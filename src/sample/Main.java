@@ -58,6 +58,7 @@ public class Main extends Application {
         ConfirmBox cb = new ConfirmBox();
         boolean answer = cb.display("Close Program","Are you sure?\nClose Program");
         if(answer) {
+            System.out.println("Closing...");
             window.close();
         }
 
