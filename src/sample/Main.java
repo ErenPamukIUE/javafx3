@@ -1,12 +1,11 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -24,31 +23,43 @@ public class Main extends Application {
         window = stage;
         window.setTitle("Title");
 
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
+        grid.setVgap(8);
+        grid.setHgap(10);
+
+        //Name Label
+        Label nameLabel = new Label("Username");
+        GridPane.setConstraints(nameLabel,0,0);
+
+        //Name Input
+        TextField nameInput = new TextField();
+        GridPane.setConstraints(nameInput,1,0);
+
+        //Password Label
+        Label pswLabel = new Label("password");
+        GridPane.setConstraints(pswLabel,0,1);
+
+        //Password Input
+        TextField pswInput = new TextField();
+        pswInput.setPromptText("password");
+        GridPane.setConstraints(pswInput,1,1);
+
+        Button logInButton = new Button("Log in");;
+        GridPane.setConstraints(logInButton,1,2);
+
+        grid.getChildren().addAll(nameLabel,nameInput,pswInput,pswLabel,logInButton);
+        Scene scene = new Scene(grid,400,400);
+        window.setScene(scene);
+
+
+
         window.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
         });
+        window.setResizable(false);
 
-        HBox topMenu = new HBox();
-        Button buttonA = new Button("File");
-        Button buttonB = new Button("Edit");
-        Button buttonC = new Button("View");
-        topMenu.getChildren().addAll(buttonA,buttonB,buttonC);
-
-        VBox leftMenu = new VBox();
-        Button buttonD = new Button("B1");
-        Button buttonE = new Button("B2");
-        Button buttonF = new Button("B3");
-        leftMenu.getChildren().addAll(buttonD,buttonE,buttonF);
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setTop(topMenu);
-        borderPane.setLeft(leftMenu);
-
-
-        StackPane layout = new StackPane();
-        Scene scene = new Scene(borderPane,800,600);
-        window.setScene(scene);
         window.show();
 
 
