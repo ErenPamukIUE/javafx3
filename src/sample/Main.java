@@ -23,46 +23,39 @@ public class Main extends Application {
         window = stage;
         window.setTitle("Title");
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10,10,10,10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-
-        //Name Label
-        Label nameLabel = new Label("Username");
-        GridPane.setConstraints(nameLabel,0,0);
-
-        //Name Input
-        TextField nameInput = new TextField();
-        GridPane.setConstraints(nameInput,1,0);
-
-        //Password Label
-        Label pswLabel = new Label("password");
-        GridPane.setConstraints(pswLabel,0,1);
-
-        //Password Input
-        TextField pswInput = new TextField();
-        pswInput.setPromptText("password");
-        GridPane.setConstraints(pswInput,1,1);
-
-        Button logInButton = new Button("Log in");;
-        GridPane.setConstraints(logInButton,1,2);
-
-        grid.getChildren().addAll(nameLabel,nameInput,pswInput,pswLabel,logInButton);
-        Scene scene = new Scene(grid,400,400);
-        window.setScene(scene);
-
-
-
         window.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
         });
-        window.setResizable(false);
+
+        TextField nameInput = new TextField();
+        Button button = new Button("Click me");
+        button.setOnAction(e -> {
+            isInt(nameInput);
+        });
+
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20,20,20,20));
+        layout.getChildren().addAll(nameInput,button);
+
+        Scene scene = new Scene(layout,350,350);
+        window.setScene(scene);
 
         window.show();
 
 
+    }
+    private boolean isInt(TextField input) {
+        String text = input.getText();
+        try{
+        int age = Integer.parseInt(text);
+            System.out.println("User is: " + age + " years old");
+        return true;
+        } catch (NumberFormatException e) {
+            System.err.println("Error: '" + text + "' is not a number");
+        }
+        return false;
     }
 
     private void closeProgram() {
