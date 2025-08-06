@@ -3,12 +3,12 @@ package sample;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -33,19 +33,24 @@ public class Main extends Application {
             closeProgram();
         });
 
-        //Checkboxes
-        CheckBox box1 = new CheckBox("Bacon");
-        CheckBox box2 = new CheckBox("Mushrooms");
 
-        Button button = new Button("Order Now");
+
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.getItems().add("Apples");
+        choiceBox.getItems().add("Pineapples");
+        choiceBox.getItems().add("Bananas");
+
+        choiceBox.setValue("Apples");
+
+        Button button = new Button("Click Me");
         button.setOnAction(e -> {
-            handleOptions(box1,box2);
+            getChoice(choiceBox);
         });
 
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(box1,box2,button);
+        layout.getChildren().addAll(choiceBox,button);
 
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
@@ -54,6 +59,11 @@ public class Main extends Application {
 
 
     }
+    private void getChoice(ChoiceBox<String> choiceBox){
+        String text = choiceBox.getValue();
+        System.out.println(text);
+    }
+
     private void handleOptions(CheckBox... boxes) {
         System.out.println(String.join("\n", Arrays.stream(boxes).filter(CheckBox::isSelected).map(CheckBox::getText).collect(Collectors.toList())));
     }
