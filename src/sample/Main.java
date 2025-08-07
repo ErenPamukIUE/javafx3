@@ -42,6 +42,10 @@ public class Main extends Application {
 
         choiceBox.setValue("Apples");
 
+        choiceBox.getSelectionModel().selectedItemProperty().addListener( (v,oldValue,newValue) -> {
+            System.out.println(newValue);
+        });
+
         Button button = new Button("Click Me");
         button.setOnAction(e -> {
             getChoice(choiceBox);
@@ -50,7 +54,7 @@ public class Main extends Application {
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(choiceBox,button);
+        layout.getChildren().addAll(choiceBox);
 
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
