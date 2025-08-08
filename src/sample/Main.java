@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class Main extends Application {
 
     Stage window;
+    ComboBox comboBox;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,27 +35,28 @@ public class Main extends Application {
         });
 
 
-
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().add("Apples");
-        choiceBox.getItems().add("Pineapples");
-        choiceBox.getItems().add("Bananas");
-
-        choiceBox.setValue("Apples");
-
-        choiceBox.getSelectionModel().selectedItemProperty().addListener( (v,oldValue,newValue) -> {
-            System.out.println(newValue);
-        });
-
         Button button = new Button("Click Me");
         button.setOnAction(e -> {
-            getChoice(choiceBox);
+            printText();
         });
+
+        comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(
+                "Good Will Hunting",
+                "St. Vincent",
+                "Blackhat"
+        );
+
+        comboBox.setOnAction(e -> System.out.println("User selected: " + comboBox.getValue()));
+
+        comboBox.setEditable(true);
 
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(choiceBox);
+        layout.getChildren().addAll(comboBox,button);
+
+        comboBox.setPromptText("Pick Movie");
 
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
@@ -63,6 +65,10 @@ public class Main extends Application {
 
 
     }
+    private void printText() {
+        System.out.println(comboBox.getValue());
+    }
+
     private void getChoice(ChoiceBox<String> choiceBox){
         String text = choiceBox.getValue();
         System.out.println(text);
