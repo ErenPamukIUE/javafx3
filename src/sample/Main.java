@@ -20,6 +20,7 @@ public class Main extends Application {
     Stage window;
     ComboBox comboBox;
     ListView listView;
+    TreeView<String> tree;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,18 +51,44 @@ public class Main extends Application {
         listView.getItems().addAll("Iron Man","Titanic","Contact","Surrogates");
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+
+
+
         Button button = new Button("Click Me");
         button.setOnAction(e -> {
             buttonClicked();
         });
 
+        TreeItem<String> root,bucky,megan;
+
+        //Root
+        root = new TreeItem<>();
+        root.setExpanded(true);
+
+        //Bucky
+        bucky = makeBranch("Bucky",root);
+        makeBranch("thenewboston",bucky);
+        makeBranch("Youtube",bucky);
+        makeBranch("Chicken",bucky);
+
+        //Megan
+        megan = makeBranch("Megan",root);
+        makeBranch("Glitter",megan);
+        makeBranch("Makeup",megan);
+
+        //Create Tree
+        tree = new TreeView<>(root);
+        tree.setShowRoot(false);
+        tree.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newValue) -> {
+            if(newValue != null) {
+                System.out.println(newValue.getValue());
+            }
+        });
+
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(listView,button);
-
-
-
+        layout.getChildren().add(tree);
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
 
@@ -69,6 +96,14 @@ public class Main extends Application {
 
 
     }
+
+    public TreeItem<String> makeBranch(String title,TreeItem<String> parent){
+        TreeItem<String> item = new TreeItem<>(title);
+        item.setExpanded(true);
+        parent.getChildren().add(item);
+        return item;
+    }
+
     private void buttonClicked(){
         //for List View
         System.out.println(listView.getSelectionModel().getSelectedItems().stream().collect(Collectors.joining(",")));
