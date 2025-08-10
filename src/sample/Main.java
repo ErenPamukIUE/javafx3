@@ -19,6 +19,7 @@ public class Main extends Application {
 
     Stage window;
     ComboBox comboBox;
+    ListView listView;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,28 +36,31 @@ public class Main extends Application {
         });
 
 
-        Button button = new Button("Click Me");
-        button.setOnAction(e -> {
-            printText();
-        });
-
         comboBox = new ComboBox<>();
         comboBox.getItems().addAll(
                 "Good Will Hunting",
                 "St. Vincent",
                 "Blackhat"
         );
-
         comboBox.setOnAction(e -> System.out.println("User selected: " + comboBox.getValue()));
-
         comboBox.setEditable(true);
+        comboBox.setPromptText("Pick Movie");
+
+        listView = new ListView<>();
+        listView.getItems().addAll("Iron Man","Titanic","Contact","Surrogates");
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        Button button = new Button("Click Me");
+        button.setOnAction(e -> {
+            buttonClicked();
+        });
 
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(comboBox,button);
+        layout.getChildren().addAll(listView,button);
 
-        comboBox.setPromptText("Pick Movie");
+
 
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
@@ -65,16 +69,24 @@ public class Main extends Application {
 
 
     }
+    private void buttonClicked(){
+        //for List View
+        System.out.println(listView.getSelectionModel().getSelectedItems().stream().collect(Collectors.joining(",")));
+    }
+
     private void printText() {
+        //For Combo Box
         System.out.println(comboBox.getValue());
     }
 
     private void getChoice(ChoiceBox<String> choiceBox){
+        //For Choice Box
         String text = choiceBox.getValue();
         System.out.println(text);
     }
 
     private void handleOptions(CheckBox... boxes) {
+        //For Choice Box
         System.out.println(String.join("\n", Arrays.stream(boxes).filter(CheckBox::isSelected).map(CheckBox::getText).collect(Collectors.toList())));
     }
 
