@@ -1,12 +1,15 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -21,6 +24,9 @@ public class Main extends Application {
     ComboBox comboBox;
     ListView listView;
     TreeView<String> tree;
+    TableView<Product> table;
+    TextField nameInput , priceInput , quantityInput;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +41,48 @@ public class Main extends Application {
             e.consume();
             closeProgram();
         });
+
+        TableColumn<Product,String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setMinWidth(200);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        TableColumn<Product,Double> priceColumn = new TableColumn<>("Price");
+        priceColumn.setMinWidth(200);
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+
+        TableColumn<Product,Integer> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setMinWidth(200);
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+
+        //Name Input
+        nameInput = new TextField();
+        nameInput.setPromptText("Name");
+        nameInput.setMinWidth(100);
+
+        //Price Input
+        priceInput = new TextField();
+        priceInput.setPromptText("Price");
+        priceInput.setMinWidth(100);
+
+        //Quantity Input
+        quantityInput = new TextField();
+        quantityInput.setPromptText("Quantity ");
+        quantityInput.setMinWidth(100);
+
+        //Table Input Button
+        Button addButton = new Button("Add");
+        Button deleteButton = new Button("Delete");
+
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10,10,10,10));
+        hBox.setSpacing(10);
+        hBox.getChildren().addAll(nameInput,priceInput,quantityInput,addButton,deleteButton);
+
+
+
+        table = new TableView<>();
+        table.setItems(getProduct());
+        table.getColumns().addAll(nameColumn,priceColumn,quantityColumn);
 
 
         comboBox = new ComboBox<>();
@@ -88,11 +136,22 @@ public class Main extends Application {
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().add(tree);
+        layout.getChildren().addAll(table,hBox);
         Scene scene = new Scene(layout,350,350);
         window.setScene(scene);
 
         window.show();
+
+
+    }
+
+    public ObservableList<Product> getProduct(){
+        ObservableList<Product> products = FXCollections.observableArrayList();
+        products.add(new Product("Laptop",859.00,20));
+        products.add(new Product("Bear Carpet",3899.00,1));
+        products.add(new Product("Squirrell Statue",1050.00,3));
+        products.add(new Product("Bouncy Ball",55.00,50));
+        return products;
 
 
     }
