@@ -11,17 +11,32 @@ import javafx.scene.control.Label;
 import javafx.geometry.*;
 
 public class AlertBox {
-    public static void display(String title, String message){
-        Stage window = new Stage();
+    String closeWindowText;
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
-        window.setMinWidth(500);
-        window.setMinHeight(1000);
+    public AlertBox() {
+    this.closeWindowText = "Close this Window";
+    }
+
+    public void display(String title, String message){
+        Stage window = new Stage();
 
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("Close the Window");
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+
+        if (message.length()<50) {
+        window.setMinWidth(320);
+        window.setMinHeight(320);
+        } else {
+            window.setMinWidth(800);
+            window.setMinHeight(600);
+
+        }
+
+
+        Button closeButton = new Button(closeWindowText);
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(3);
@@ -34,4 +49,11 @@ public class AlertBox {
 
     }
 
+    public String getCloseWindowText() {
+        return closeWindowText;
+    }
+
+    public void setCloseWindowText(String closeWindowText) {
+        this.closeWindowText = closeWindowText;
+    }
 }

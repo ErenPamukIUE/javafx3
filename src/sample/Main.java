@@ -42,6 +42,9 @@ public class Main extends Application {
             closeProgram();
         });
 
+
+        //                           TABLE VIEW
+
         TableColumn<Product,String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(200);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -71,7 +74,20 @@ public class Main extends Application {
 
         //Table Input Button
         Button addButton = new Button("Add");
+        addButton.setOnAction(e -> tableAddButtonClicked());
+
         Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction(e -> {
+            try {
+                tableDeleteButtonClicked();
+        } catch (Exception exception) {
+                AlertBox ab = new AlertBox();
+                ab.setCloseWindowText("Ok");
+                ab.display("Warning",exception.getMessage());
+
+
+        } }
+    );
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10,10,10,10));
@@ -83,7 +99,10 @@ public class Main extends Application {
         table = new TableView<>();
         table.setItems(getProduct());
         table.getColumns().addAll(nameColumn,priceColumn,quantityColumn);
+        //                           TABLE VIEW
 
+
+        //                          COMBO BOX
 
         comboBox = new ComboBox<>();
         comboBox.getItems().addAll(
@@ -94,32 +113,38 @@ public class Main extends Application {
         comboBox.setOnAction(e -> System.out.println("User selected: " + comboBox.getValue()));
         comboBox.setEditable(true);
         comboBox.setPromptText("Pick Movie");
+        //                          COMBO BOX
 
+
+
+        //                           LIST VIEW
         listView = new ListView<>();
         listView.getItems().addAll("Iron Man","Titanic","Contact","Surrogates");
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        //                           LIST VIEW
 
 
 
 
-        Button button = new Button("Click Me");
-        button.setOnAction(e -> {
-            buttonClicked();
+        Button viewListButton = new Button("View Selected");
+        viewListButton.setOnAction(e -> {
+            viewListButtonClicked();
         });
 
         TreeItem<String> root,bucky,megan;
 
-        //Root
+
+
+
+        //              ROOT AND BRANCHES
         root = new TreeItem<>();
         root.setExpanded(true);
 
-        //Bucky
         bucky = makeBranch("Bucky",root);
         makeBranch("thenewboston",bucky);
         makeBranch("Youtube",bucky);
         makeBranch("Chicken",bucky);
 
-        //Megan
         megan = makeBranch("Megan",root);
         makeBranch("Glitter",megan);
         makeBranch("Makeup",megan);
@@ -133,17 +158,84 @@ public class Main extends Application {
             }
         });
 
+        //              ROOT AND BRANCHES
 
+
+
+        //                   LAYOUT DESIGN
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
         layout.getChildren().addAll(table,hBox);
-        Scene scene = new Scene(layout,350,350);
+        Scene scene = new Scene(layout,500,500);
         window.setScene(scene);
 
         window.show();
+        //                   LAYOUT DESIGN
 
 
     }
+    //Table Delete Button
+    public void tableDeleteButtonClicked() throws Exception {
+        ObservableList<Product> productSelected , allProducts;
+        allProducts = table.getItems();
+        if(allProducts.size() <= 1) {
+            throw new Exception("You cannot remove the only item on table");
+        }
+        productSelected = table.getSelectionModel().getSelectedItems();
+
+        productSelected.forEach(allProducts::remove);
+    }
+
+    //Table Add Button
+    public void tableAddButtonClicked() {
+        Product product = new Product();
+        String name = product.getName();
+        double price = product.getPrice();
+        int quantity = product.getQuantity();
+
+        name = this.nameInput.getText();
+        if(name.trim().equals("")) {
+            AlertBox ab = new AlertBox();
+            ab.setCloseWindowText("Ok");
+            ab.display("Warning" , "Cannot add unnamed item(s).");
+            return;
+        }
+        product.setName(name);
+
+
+        String priceTag = this.priceInput.getText().trim();
+        try {
+            if (priceTag.equals("")) {
+                product.setPrice(0.0);
+            }else {
+            price = Double.parseDouble(priceTag);}
+        } catch (NumberFormatException e) {
+            AlertBox ab = new AlertBox();
+            ab.setCloseWindowText("Ok");
+            ab.display("Warning: Invalid input","'" + priceTag + "' is not a valid price value.");
+            return;
+        }
+        product.setPrice(price);
+
+        String quantityTag = this.quantityInput.getText().trim();
+        try {
+            if (quantityTag.equals("")) {
+                product.setQuantity(0);
+            }else {
+                quantity = Integer.parseInt(quantityTag);}
+        } catch (NumberFormatException e) {
+            AlertBox ab = new AlertBox();
+            ab.setCloseWindowText("Ok");
+            ab.display("Warning: Invalid input","'" + quantityTag + "' is not a valid quantity value.");
+            return;
+        }
+        product.setQuantity(quantity);
+
+        table.getItems().addAll(product);
+
+
+    }
+
 
     public ObservableList<Product> getProduct(){
         ObservableList<Product> products = FXCollections.observableArrayList();
@@ -163,7 +255,7 @@ public class Main extends Application {
         return item;
     }
 
-    private void buttonClicked(){
+    private void viewListButtonClicked(){
         //for List View
         System.out.println(listView.getSelectionModel().getSelectedItems().stream().collect(Collectors.joining(",")));
     }
