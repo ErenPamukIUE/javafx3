@@ -121,7 +121,6 @@ public class Main extends Application {
         listView = new ListView<>();
         listView.getItems().addAll("Iron Man","Titanic","Contact","Surrogates");
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        //                           LIST VIEW
 
 
 
@@ -131,12 +130,14 @@ public class Main extends Application {
             viewListButtonClicked();
         });
 
+        //                           LIST VIEW
+
+
+
+
+        //              TREE ROOT AND BRANCHES
+
         TreeItem<String> root,bucky,megan;
-
-
-
-
-        //              ROOT AND BRANCHES
         root = new TreeItem<>();
         root.setExpanded(true);
 
@@ -158,17 +159,17 @@ public class Main extends Application {
             }
         });
 
-        //              ROOT AND BRANCHES
+        //              TREE ROOT AND BRANCHES
 
 
 
         //                   LAYOUT DESIGN
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(table,hBox);
-        Scene scene = new Scene(layout,500,500);
-        window.setScene(scene);
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(20,20,20,20));
+        vBox.getChildren().addAll(table,hBox);
 
+        Scene scene = new Scene(vBox,500,500);
+        window.setScene(scene);
         window.show();
         //                   LAYOUT DESIGN
 
