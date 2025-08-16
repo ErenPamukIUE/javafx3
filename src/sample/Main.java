@@ -23,7 +23,8 @@ public class Main extends Application {
     Stage window;
     ComboBox comboBox;
     ListView listView;
-    TreeView<String> tree;
+    TreeView<String> tree1;
+    TreeView<String> tree2;
     TableView<Product> table;
     TextField nameInput , priceInput , quantityInput;
 
@@ -89,10 +90,10 @@ public class Main extends Application {
         } }
     );
 
-        HBox hBox = new HBox();
-        hBox.setPadding(new Insets(10,10,10,10));
-        hBox.setSpacing(10);
-        hBox.getChildren().addAll(nameInput,priceInput,quantityInput,addButton,deleteButton);
+        HBox tableHBox = new HBox();
+        tableHBox.setPadding(new Insets(10,10,10,10));
+        tableHBox.setSpacing(10);
+        tableHBox.getChildren().addAll(nameInput,priceInput,quantityInput,addButton,deleteButton);
 
 
 
@@ -137,6 +138,47 @@ public class Main extends Application {
 
         //              TREE ROOT AND BRANCHES
 
+
+        //Create Tree1 (DOUBLE-CLICK)
+        tree1 = new TreeView<>(getTree());
+        tree1.setShowRoot(false);
+        tree1.setOnMouseClicked(e -> {
+            if(e.getClickCount() == 2 ){
+            TreeItem<String> selectedItem = tree1.getSelectionModel().getSelectedItem();
+                if(selectedItem != null) {
+                    System.out.println(selectedItem.getValue());
+                }
+            }
+        });
+
+        //Create Tree2
+        tree2 = new TreeView<>(getTree());
+        tree2.setShowRoot(false);
+        tree2.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newValue) -> {
+            if(newValue != null) {
+                System.out.println(newValue.getValue());
+            }
+        });
+
+        //              TREE ROOT AND BRANCHES
+
+
+
+        //                   LAYOUT DESIGN
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(20,20,20,20));
+        vBox.getChildren().addAll(tree2);
+
+        Scene scene = new Scene(vBox,500,500);
+        window.setScene(scene);
+        window.show();
+        //                   LAYOUT DESIGN
+
+
+    }
+    //MAIN METHOD END
+
+    public TreeItem<String> getTree() {
         TreeItem<String> root,bucky,megan;
         root = new TreeItem<>();
         root.setExpanded(true);
@@ -150,31 +192,11 @@ public class Main extends Application {
         makeBranch("Glitter",megan);
         makeBranch("Makeup",megan);
 
-        //Create Tree
-        tree = new TreeView<>(root);
-        tree.setShowRoot(false);
-        tree.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newValue) -> {
-            if(newValue != null) {
-                System.out.println(newValue.getValue());
-            }
-        });
-
-        //              TREE ROOT AND BRANCHES
-
-
-
-        //                   LAYOUT DESIGN
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(20,20,20,20));
-        vBox.getChildren().addAll(table,hBox);
-
-        Scene scene = new Scene(vBox,500,500);
-        window.setScene(scene);
-        window.show();
-        //                   LAYOUT DESIGN
-
+        return root;
 
     }
+
+
     //Table Delete Button
     public void tableDeleteButtonClicked() throws Exception {
         ObservableList<Product> productSelected , allProducts;

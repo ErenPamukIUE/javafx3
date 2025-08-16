@@ -39,13 +39,29 @@ public class SecondMain  extends Application {
         });
 
         Menu filemenu = new Menu("File");
+        MenuItem newFile = new MenuItem("New...");
+        newFile.setOnAction(e -> System.out.println("Create a new File..."));
 
-        filemenu.getItems().add(new MenuItem("New Project..."));
-        filemenu.getItems().add(new MenuItem("New Module..."));
-        filemenu.getItems().add(new MenuItem("Import Project..."));
+        filemenu.getItems().add(newFile);
+        filemenu.getItems().add(new MenuItem("Open..."));
+        filemenu.getItems().add(new MenuItem("Save..."));
+        filemenu.getItems().add(new SeparatorMenuItem());
+        filemenu.getItems().add(new MenuItem("Settings..."));
+        filemenu.getItems().add(new SeparatorMenuItem());
+        filemenu.getItems().add(new MenuItem("Exit..."));
+
+        Menu editMenu = new Menu("_Edit");
+        editMenu.getItems().add(new MenuItem("Cut"));
+        editMenu.getItems().add(new MenuItem("Copy"));
+
+        MenuItem paste = new MenuItem("Paste");
+        paste.setOnAction(e -> System.out.println("paste..."));
+        paste.setDisable(true);
+        editMenu.getItems().add(paste);
+
 
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(filemenu);
+        menuBar.getMenus().addAll(filemenu,editMenu);
 
 
 
