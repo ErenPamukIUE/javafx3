@@ -62,8 +62,22 @@ public class SecondMain  extends Application {
         CheckMenuItem autoSave = new CheckMenuItem("Enable AutoSave");
         autoSave.setSelected(true);
         helpMenu.getItems().addAll(showLines,autoSave);
+
+        Menu difficultyMenu = new Menu("Difficulty");
+        ToggleGroup difficultyToggle = new ToggleGroup();
+        RadioMenuItem ez = new RadioMenuItem("Easy");
+        RadioMenuItem mid = new RadioMenuItem("Medium");
+        RadioMenuItem hard = new RadioMenuItem("Hard");
+
+        ez.setToggleGroup(difficultyToggle);
+        mid.setToggleGroup(difficultyToggle);
+        hard.setToggleGroup(difficultyToggle);
+        difficultyMenu.getItems().addAll(ez,mid,hard);
+
+
+
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(filemenu,editMenu,helpMenu);
+        menuBar.getMenus().addAll(filemenu,editMenu,helpMenu,difficultyMenu);
 
 
 
