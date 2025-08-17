@@ -39,16 +39,7 @@ public class SecondMain  extends Application {
         });
 
         Menu filemenu = new Menu("File");
-        MenuItem newFile = new MenuItem("New...");
-        newFile.setOnAction(e -> System.out.println("Create a new File..."));
-
-        filemenu.getItems().add(newFile);
-        filemenu.getItems().add(new MenuItem("Open..."));
-        filemenu.getItems().add(new MenuItem("Save..."));
-        filemenu.getItems().add(new SeparatorMenuItem());
-        filemenu.getItems().add(new MenuItem("Settings..."));
-        filemenu.getItems().add(new SeparatorMenuItem());
-        filemenu.getItems().add(new MenuItem("Exit..."));
+        getFileMenuItems(filemenu);
 
         Menu editMenu = new Menu("_Edit");
         editMenu.getItems().add(new MenuItem("Cut"));
@@ -59,9 +50,20 @@ public class SecondMain  extends Application {
         paste.setDisable(true);
         editMenu.getItems().add(paste);
 
-
+        Menu helpMenu = new Menu("Help");
+        CheckMenuItem showLines = new CheckMenuItem("Show Line Numbers");
+        showLines.setOnAction(e -> {
+            if (showLines.isSelected()) {
+                System.out.println("Display Lines");
+            } else {
+                System.out.println("Hiding Lines Now");
+            }
+        });
+        CheckMenuItem autoSave = new CheckMenuItem("Enable AutoSave");
+        autoSave.setSelected(true);
+        helpMenu.getItems().addAll(showLines,autoSave);
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(filemenu,editMenu);
+        menuBar.getMenus().addAll(filemenu,editMenu,helpMenu);
 
 
 
@@ -76,6 +78,18 @@ public class SecondMain  extends Application {
         window.setScene(scene);
 
         window.show();
+
+    }
+    private void getFileMenuItems(Menu menu) {
+        MenuItem newFile = new MenuItem("New...");
+        newFile.setOnAction(e -> System.out.println("Create a new File..."));
+        menu.getItems().add(newFile);
+        menu.getItems().add(new MenuItem("Open..."));
+        menu.getItems().add(new MenuItem("Save..."));
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new MenuItem("Settings..."));
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new MenuItem("Exit..."));
 
     }
 
