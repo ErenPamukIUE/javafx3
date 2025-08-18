@@ -170,6 +170,9 @@ public class Main extends Application {
         vBox.getChildren().addAll(tree2);
 
         Scene scene = new Scene(vBox,500,500);
+        scene.getStylesheets().add(
+                Main.class.getResource("/sample/EViper.css").toExternalForm()
+        );
         window.setScene(scene);
         window.show();
         //                   LAYOUT DESIGN
