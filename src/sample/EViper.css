@@ -1,7 +1,7 @@
 .root{
-    -fx-background-color: #660033;
+    -fx-background-color: linear-gradient(to bottom right, #000000 20%, #00ccff 88%);
     -fx-font-size: 11pt;
-}
+    }
 .label{
    -fx-text-fill: red;
 }
@@ -9,4 +9,12 @@
     -fx-background-color: linear-gradient(green,blue);
     -fx-text-fill: cyan;
     -fx-background-radius: 10;
+}
+.button-fazWrench {
+    -fx-background-color: linear-gradient(to bottom, #e6b800 65%, #00cccc 100%);
+    -fx-text-fill: #000000;
+    -fx-background-radius: 10;
+}
+#bold-label {
+    -fx-font-weight: bold;
 }
