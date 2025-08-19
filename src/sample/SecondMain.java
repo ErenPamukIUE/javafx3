@@ -70,8 +70,12 @@ public class SecondMain  extends Application {
         RadioMenuItem hard = new RadioMenuItem("Hard");
 
         ez.setToggleGroup(difficultyToggle);
+        ez.setStyle("-fx-text-fill: limeGreen");
         mid.setToggleGroup(difficultyToggle);
+        mid.setStyle("-fx-text-fill: Orange");
         hard.setToggleGroup(difficultyToggle);
+        hard.setStyle("-fx-text-fill: Red");
+
         difficultyMenu.getItems().addAll(ez,mid,hard);
 
 

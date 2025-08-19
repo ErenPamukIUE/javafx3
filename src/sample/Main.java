@@ -100,6 +100,9 @@ public class Main extends Application {
         table = new TableView<>();
         table.setItems(getProduct());
         table.getColumns().addAll(nameColumn,priceColumn,quantityColumn);
+        VBox tableVBox = new VBox();
+        tableVBox.getChildren().addAll(table,tableHBox);
+
         //                           TABLE VIEW
 
 
@@ -163,13 +166,26 @@ public class Main extends Application {
         //              TREE ROOT AND BRANCHES
 
 
+        //                         LABEL STYLES
+        VBox vBox2 = new VBox();
+        Label label1 = new Label("Writing on the wall");
+        //label1.setStyle("-fx-text-fill: Red");
+        Label label2 = new Label("F10-N4");
+        Label label3 = new Label("M2");
+        vBox2.getChildren().addAll(label1,label2,label3);
+
+        //                         LABEL STYLES
+
+
+
+
 
         //                   LAYOUT DESIGN
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(20,20,20,20));
-        vBox.getChildren().addAll(tree2);
+        vBox.getChildren().addAll(tableVBox,vBox2);
 
-        Scene scene = new Scene(vBox,500,500);
+        Scene scene = new Scene(vBox,1024,700);
         scene.getStylesheets().add(
                 Main.class.getResource("/sample/EViper.css").toExternalForm()
         );
@@ -179,7 +195,7 @@ public class Main extends Application {
 
 
     }
-    //MAIN METHOD END
+    //                                  MAIN METHOD END
 
     public TreeItem<String> getTree() {
         TreeItem<String> root,bucky,megan;
