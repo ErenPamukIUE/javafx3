@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,6 +30,55 @@ public class SecondMain  extends Application {
             closeProgram();
         });
 
+
+        //                                  PACKED METHODS
+        Button runBindingExample = new Button("Binding Example");
+        runBindingExample.setOnAction(e -> {
+            try {
+                simpleBindingExample();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        VBox propertiesVBox = getPropertiesExample();
+        MenuBar menuBar = getMenuBar();
+        //                                  PACKED METHODS
+
+
+        //                   LAYOUT DESIGN
+        layout = new BorderPane();
+        layout.setTop(menuBar);
+
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(20,20,20,20));
+        vBox.getChildren().addAll();
+
+        Scene scene = new Scene(vBox,500,500);
+        window.setScene(scene);
+
+        window.show();
+        //                   LAYOUT DESIGN
+
+
+    }
+    //                                         MAIN METHOD END
+
+    private void simpleBindingExample() throws InterruptedException {
+        IntegerProperty x = new SimpleIntegerProperty(3);
+        IntegerProperty y = new SimpleIntegerProperty();
+        System.out.println("X: "+ x.getValue() + " Y: " + y.getValue());
+        y.bind(x.multiply(5));
+        Thread.sleep(2000);
+        x.setValue(x.getValue() + 2);
+        System.out.println("X: "+ x.getValue() + " Y: " + y.getValue());
+        y.unbind();
+        System.out.println("Y unbound");
+        Thread.sleep(2000);
+        x.setValue(x.getValue() + 2);
+        System.out.println("X: "+ x.getValue() + " Y: " + y.getValue());
+
+    }
+    private VBox getPropertiesExample(){
         Person eren = new Person();
         Label name = new Label("Their name");
 
@@ -47,23 +98,9 @@ public class SecondMain  extends Application {
             System.out.println("getFirstName(): " + eren.getFirstName());
             name.setText(newValue);
         });
-
-
-
-        MenuBar menuBar = getMenuBar();
-
-        layout = new BorderPane();
-        layout.setTop(menuBar);
-
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(20,20,20,20));
+        VBox vBox = new VBox();
         vBox.getChildren().addAll(nameInput,changeNameButton,name);
-
-        Scene scene = new Scene(vBox,500,500);
-        window.setScene(scene);
-
-        window.show();
-
+        return vBox;
     }
 
     //                                          MENU DESIGNING
