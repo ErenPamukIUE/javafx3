@@ -1,24 +1,14 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class SecondMain  extends Application {
     Stage window;
@@ -38,6 +28,46 @@ public class SecondMain  extends Application {
             closeProgram();
         });
 
+        Person eren = new Person();
+        Label name = new Label("Their name");
+
+        TextField nameInput = new TextField();
+
+        nameInput.setPromptText("Enter New Name");
+
+        Button changeNameButton = new Button("Change Name");
+
+        changeNameButton.setOnAction(e -> {
+            eren.setFirstName(nameInput.getText());
+        });
+
+        eren.firstNameProperty().addListener( (v,oldValue,newValue) -> {
+            System.out.println("Name Changed to: " + "'" + newValue + "'");
+            System.out.println("firstNameProperty(): " + eren.firstNameProperty());
+            System.out.println("getFirstName(): " + eren.getFirstName());
+            name.setText(newValue);
+        });
+
+
+
+        MenuBar menuBar = getMenuBar();
+
+        layout = new BorderPane();
+        layout.setTop(menuBar);
+
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(20,20,20,20));
+        vBox.getChildren().addAll(nameInput,changeNameButton,name);
+
+        Scene scene = new Scene(vBox,500,500);
+        window.setScene(scene);
+
+        window.show();
+
+    }
+
+    //                                          MENU DESIGNING
+    private MenuBar getMenuBar(){
         Menu filemenu = new Menu("File");
         getFileMenuItems(filemenu);
 
@@ -63,6 +93,14 @@ public class SecondMain  extends Application {
         autoSave.setSelected(true);
         helpMenu.getItems().addAll(showLines,autoSave);
 
+        Menu difficultyMenu = getDifficultyMenu();
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(filemenu,editMenu,helpMenu,difficultyMenu);
+
+        return menuBar;
+    }
+
+    private Menu getDifficultyMenu() {
         Menu difficultyMenu = new Menu("Difficulty");
         ToggleGroup difficultyToggle = new ToggleGroup();
         RadioMenuItem ez = new RadioMenuItem("Easy");
@@ -78,26 +116,10 @@ public class SecondMain  extends Application {
 
         difficultyMenu.getItems().addAll(ez,mid,hard);
 
-
-
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(filemenu,editMenu,helpMenu,difficultyMenu);
-
-
-
-        layout = new BorderPane();
-        layout.setTop(menuBar);
-
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(20,20,20,20));
-        vBox.getChildren().addAll();
-
-        Scene scene = new Scene(layout,500,500);
-        window.setScene(scene);
-
-        window.show();
-
+        return difficultyMenu;
     }
+
+
     private void getFileMenuItems(Menu menu) {
         MenuItem newFile = new MenuItem("New...");
         newFile.setOnAction(e -> System.out.println("Create a new File..."));
@@ -110,6 +132,8 @@ public class SecondMain  extends Application {
         menu.getItems().add(new MenuItem("Exit..."));
 
     }
+    //                                          MENU DESIGNING
+
 
     private void closeProgram() {
         ConfirmBox cb = new ConfirmBox();
