@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
@@ -31,6 +32,9 @@ public class SecondMain  extends Application {
         });
 
 
+
+
+
         //                                  PACKED METHODS
         Button runBindingExample = new Button("Binding Example");
         runBindingExample.setOnAction(e -> {
@@ -41,6 +45,7 @@ public class SecondMain  extends Application {
             }
         });
         VBox propertiesVBox = getPropertiesExample();
+        VBox bindingExampleVBox = textBindingExample();
         MenuBar menuBar = getMenuBar();
         //                                  PACKED METHODS
 
@@ -53,7 +58,7 @@ public class SecondMain  extends Application {
         vBox.setPadding(new Insets(20,20,20,20));
         vBox.getChildren().addAll();
 
-        Scene scene = new Scene(vBox,500,500);
+        Scene scene = new Scene(bindingExampleVBox,500,500);
         window.setScene(scene);
 
         window.show();
@@ -62,6 +67,23 @@ public class SecondMain  extends Application {
 
     }
     //                                         MAIN METHOD END
+
+    private VBox textBindingExample() {
+        TextField userInput = new TextField();
+        userInput.setMaxWidth(200);
+        Label firstLabel = new Label("Welcome to the Site ");
+        Label secondLabel = new Label();
+
+        HBox bindingTextHBox = new HBox(firstLabel,secondLabel);
+        bindingTextHBox.setAlignment(Pos.CENTER);
+
+        VBox bindingExampleVBox = new VBox(10,userInput,bindingTextHBox);
+        bindingExampleVBox.setAlignment(Pos.CENTER);
+
+        secondLabel.textProperty().bind(userInput.textProperty());
+
+        return bindingExampleVBox;
+    }
 
     private void simpleBindingExample() throws InterruptedException {
         IntegerProperty x = new SimpleIntegerProperty(3);
