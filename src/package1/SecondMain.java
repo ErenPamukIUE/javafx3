@@ -1,5 +1,7 @@
-package sample;
+package package1;
 
+import exampleClasses.ConfirmBox;
+import exampleClasses.Person;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,7 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class SecondMain  extends Application {
+public class SecondMain  extends Application{
     Stage window;
     BorderPane layout;
 

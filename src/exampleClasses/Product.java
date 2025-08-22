@@ -1,4 +1,4 @@
-package sample;
+package exampleClasses;
 
 public class Product {
     private String name;

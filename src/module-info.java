@@ -1,7 +1,8 @@
-module javafx2 {
+module javafx {
     requires javafx.fxml;
     requires javafx.controls;
     requires java.desktop;
 
-    opens sample;
+    opens package1;
+    opens exampleClasses;
 }

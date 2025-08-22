@@ -1,5 +1,8 @@
-package sample;
+package package1;
 
+import exampleClasses.AlertBox;
+import exampleClasses.ConfirmBox;
+import exampleClasses.Product;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +20,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 
-public class Main extends Application {
+public class FirstMain extends Application {
 
     Stage window;
     ComboBox comboBox;
@@ -176,7 +179,7 @@ public class Main extends Application {
         vBox.getChildren().addAll(tableVBox, vBox2);
 
         Scene scene = new Scene(vBox, 1024, 700);
-        scene.getStylesheets().add(Main.class.getResource("/sample/EViper.css").toExternalForm());
+        scene.getStylesheets().add(FirstMain.class.getResource("/package1/EViper.css").toExternalForm());
         window.setScene(scene);
         window.show();
         //                   LAYOUT DESIGN
