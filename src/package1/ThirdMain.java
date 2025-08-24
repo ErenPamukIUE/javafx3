@@ -40,7 +40,7 @@ public class ThirdMain extends Application{
             closeProgram();
         });
 
-        Parent root = FXMLLoader.load(getClass().getResource("thisFile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("otherFile.fxml"));
         window.setTitle("Program Title");
         window.setScene(new Scene(root,800,600));
         window.show();

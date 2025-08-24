@@ -5,6 +5,7 @@ import exampleClasses.Person;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,13 +16,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class Controller {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    public Button button;
+public class Controller implements Initializable {
 
-    public void handleButtonClick() {
-        System.out.println("Run sum code");
-        button.setText("Task already done");
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Loading user data");
     }
-
 }

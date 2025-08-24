@@ -11,10 +11,17 @@
       fx:controller="package1.Controller"
       prefHeight="400.0" prefWidth="600.0">
 
-    <Label text="Arnold"/>
-    <Label text = "You guys needed this boat" fx:id = "firstLabel" >
+    <fx:define>
+        <ToggleGroup fx:id="toggleGroup"/>
+    </fx:define>
+
+    <Label text = "Difficulty"/>
+
+    <RadioButton text= "Easy" toggleGroup="$toggleGroup"/>
+    <RadioButton text= "Medium" toggleGroup="$toggleGroup"/>
+    <RadioButton text= "Hard" toggleGroup="$toggleGroup"/>
 
 
-    </Label>
 
 </VBox>
+
