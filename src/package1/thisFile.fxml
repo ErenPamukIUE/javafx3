@@ -1,20 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="package1.Controller"
-      prefHeight="400.0" prefWidth="600.0">
 
-    <Label text="Arnold"/>
-    <Label text = "You guys needed this boat" fx:id = "firstLabel" >
-
-
-    </Label>
-
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="package1.Controller">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="32.0" prefWidth="591.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File" />
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox prefHeight="18.0" prefWidth="600.0" spacing="8.0">
+               <children>
+                  <TextField>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Region />
+                  <Region prefHeight="31.0" prefWidth="200.0" />
+                  <Button mnemonicParsing="false" onAction="#clickButton" text="Button">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Button" />
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <TreeView prefHeight="189.0" prefWidth="248.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <HBox prefHeight="85.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

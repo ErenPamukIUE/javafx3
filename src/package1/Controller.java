@@ -20,6 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    public void clickButton() {
+        System.out.println("Hello There");
+    }
 
 
     @Override
